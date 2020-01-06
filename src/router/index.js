@@ -93,7 +93,6 @@ export const asyncRouterMap = [
     ]
   },
 
-
   { path: '*', redirect: '/pages/404', hidden: true }
   
 ];

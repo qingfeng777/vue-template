@@ -11,9 +11,18 @@ function hasPermission(roles, permissionRoles) {
   return roles.some(role => permissionRoles.indexOf(role) >= 0)
 }
 
+function pretendLogin() {
+  store.dispatch('PretendLogin').then(() => {
+    // this.$Message.success('登录成功');
+    this.loading = false;
+    this.$router.push({path: '/'});
+  });
+}
+
 // register global progress.
 const whiteList = ['/login', '/authredirect']// 不重定向白名单
 router.beforeEach((to, from, next) => {
+  pretendLogin()
   NProgress.start() // 开启Progress
   if (store.getters.token) { // 判断是否有token
     if (to.path === '/login') {

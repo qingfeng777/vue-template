@@ -72,9 +72,9 @@ const user = {
           console.log(response);
           const data = response.data;
           console.log(response.data);
-          Cookies.set('Admin-Token', response.data.token);
-          commit('SET_TOKEN', data.token);
-          commit('SET_EMAIL', email);
+          Cookies.set('Admin-Token', response.data.token); // admin
+          commit('SET_TOKEN', data.token);                  // admin
+          commit('SET_EMAIL', email);                       // admin
           resolve();
         }).catch(error => {
           // reject(error);
@@ -84,6 +84,17 @@ const user = {
           commit('SET_EMAIL', "admin@qq.email.com");
           resolve();
         });
+      });
+    },
+
+    // 跳过登录
+    PretendLogin({ commit }) {
+      return new Promise((resolve, reject) => {
+        let admin = "admin"
+        Cookies.set('Admin-Token', admin); // admin
+        commit('SET_TOKEN', admin);                  // admin
+        commit('SET_EMAIL', "admin@hello.com");                       // admin
+        resolve();
       });
     },
 
