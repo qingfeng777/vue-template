@@ -44,7 +44,8 @@ export const asyncRouterMap = [
     component: Full,
     hidden:false,
     children: [
-     {path: '/topic',name: 'Topic',icon:'speedometer',component: _import('Topic')},
+     {path: '/topic',name: 'Topic',icon:'speedometer',component: _import('topic/Topic')},
+     {path: '/topic/add',name: 'AddTopic',icon:'speedometer',component: _import('topic/AddTopic')},
      {path: '/introduction',name: '介绍',icon:'thumbsup',component: _import('Introduction')},
      {path: '/components',name: 'component组件',redirect: '/components/buttons',icon:'bookmark',
         component: {render (c) { return c('router-view') }},
