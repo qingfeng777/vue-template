@@ -1,5 +1,8 @@
 <template>
     <div>
+        <Button type="primary" shape="circle">圆角按钮</Button>
+        <br/>
+        <br/>
         <Table border :columns="columns" :data="this.topic.topicList"></Table>
     </div>
 </template>
