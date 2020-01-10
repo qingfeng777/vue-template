@@ -18,47 +18,13 @@
                             <Input v-model="formItem.input" placeholder="请输入秘钥"></Input>
                         </Form-item>
 
-                        <Form-item label="类型及集群选择">
-                            <Select class="halfWidth" v-model="formItem.topicType" placeholder="请选择类型">
-                                <Option value="1">无序</Option>
-                                <Option value="1">分区内有序</Option>
-                                <Option value="1">全局有序</Option>
-                                <Option value="1">无序带拓展</Option>
-                                <Option value="1">分区内有序带拓展</Option>
-                mi                <Option value="1">全局有序带拓展</Option>
-                            </Select>
+                        <Form-item label="集群选择">
                             <Select class="halfWidth paddingLeft"  v-model="formItem.select" placeholder="请选择集群">
                                 <Option value="beijing">北京市</Option>
                                 <Option value="shanghai">上海市</Option>
                                 <Option value="shenzhen">深圳市</Option>
                             </Select>
                         </Form-item>
-                        <Form-item label="队列设置">
-                            <Select class="halfWidth" v-model="formItem.select" placeholder="请选择分区数，无特殊需求建议1">
-                                <Option value="1">1</Option>
-                                <Option value="2">2</Option>
-                                <Option value="3">3</Option>
-                                <Option value="4">4</Option>
-                                <Option value="5">5</Option>
-                                <Option value="6">6</Option>
-                                <Option value="7">7</Option>
-                                <Option value="8">8</Option>
-                                <Option value="9">9</Option>
-                                <Option value="10">10</Option>
-                            </Select>
-                            <Select class="halfWidth paddingLeft" v-model="formItem.select" placeholder="请选择副本数，无特殊需求建议2">
-                                <Option value="1">1</Option>
-                                <Option value="2">2</Option>
-                                <Option value="3">3</Option>
-                                <Option value="4">4</Option>
-                                <Option value="5">5</Option>
-                            </Select>
-                            <br>
-                            <Input style="margin-top: 15px;width: 85%;" v-model="formItem.input" placeholder="请输入已消费消息留存天数，建议7天，最大15天"></Input>
-                        </Form-item>
-
-
-
                         <Form-item style="float: right;margin-right: 20%">
                             <Button type="primary">提交</Button>
                             <Button type="primary" style="margin-left: 8px">取消</Button>

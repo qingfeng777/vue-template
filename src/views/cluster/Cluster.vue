@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="operation">
-            <Button type="primary" @click="addTopic" shape="circle">新建Topic</Button>
+            <Button type="primary" @click="addTopic" shape="circle">新建集群</Button>
         </div>
         <br/>
         <br/>
@@ -26,9 +26,9 @@
             return {
                 columns: [
                     {
-                        title: '队列名',
+                        title: '集群名',
                         width:100,
-                        key: 'topic_name',
+                        key: 'cluster_name',
                         render: (h, params) => {
                             return h('div', [
 /*                                h('Icon', {
@@ -45,68 +45,17 @@
                         key: 'desc',
                     },
                     {
-                        title: '服务',
+                        title: 'lookup地址',
                         key: 'service'
                     },
                     {
-                        title: 'lookup地址',
+                        title: '机房',
                         width:170,
                         key: 'nsqlookup_addr'
                     },
                     {
-                        title: '秘钥',
+                        title: '添加时间',
                         key: 'secret_name'
-                    },
-                    {
-                        title: '类型',
-                        width:70,
-                        key: 'type'
-                    },
-                    {
-                        title: '队列类型',
-                        width:90,
-                        key: 'topic_type',
-                        render: (h,params) =>{
-                            return h('div',params.row.topic.topic_type);
-                        }
-                    },
-                    {
-                        title: '分区',
-                        key: 'partition',
-                        width:70,
-                        render: (h,params) =>{
-                            return h('div',params.row.topic.partition);
-                        }
-                    },
-                    {
-                        title: '副本',
-                        key: 'replicator',
-                        width:70,
-                        render: (h,params) =>{
-                            return h('div',params.row.topic.replicator);
-                        }
-                    },
-                    {
-                        title: '留存时间',
-                        width:90,
-                        key: 'retention',
-                        render: (h,params) =>{
-                            return h('div',params.row.topic.retention);
-                        }
-                    },
-                    {
-                        title: '创建时间',
-                        key: 'create_at'
-                    },
-                    {
-                        title: '集群',
-                        width:70,
-                        key: 'cluster_id'
-                    },
-                    {
-                        title: '用户',
-                        width:90,
-                        key: 'user_id'
                     },
                     {
                         title: '操作',
@@ -128,7 +77,7 @@
                                             this.show(params.index)
                                         }
                                     }
-                                }, '摘要'),
+                                }, '编辑'),
                                 h('Button', {
                                     props: {
                                         type: 'error',

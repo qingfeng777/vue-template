@@ -1,11 +1,55 @@
 <template>
     <div>
-        <div class="operation">
-            <Button type="primary" @click="addTopic" shape="circle">新建Topic</Button>
-        </div>
-        <br/>
+        <h4>XX集群内的XXtopic下的channel信息</h4>
         <br/>
         <Table border :columns="columns" :data="this.topic.topicList"></Table>
+
+        <!--add channel-->
+
+        <div style="margin-top: 50px">
+            <h4>新建channel</h4>
+            <!--<Alert style="width: 20%">
+                <h4>新建channel</h4>
+            </Alert>-->
+            <Row style="margin-top: 30px">
+                <Col span="24" >
+
+                    <div style="" class="">
+                        <Form :model="formItem" :label-width="80">
+                            <Form-item label="服务名">
+                                <Input v-model="formItem.input" placeholder="请输入生产消息的服务"></Input>
+                            </Form-item>
+                            <Form-item label="topic名">
+                                <Input v-model="formItem.input" placeholder="请输入topic名称"></Input>
+                            </Form-item>
+                            <Form-item label="描述">
+                                <Input v-model="formItem.input" placeholder="请输入描述信息"></Input>
+                            </Form-item>
+                            <Form-item label="秘钥">
+                                <Input v-model="formItem.input" placeholder="请输入秘钥"></Input>
+                            </Form-item>
+
+                            <Form-item label="集群选择">
+                                <Select class="halfWidth paddingLeft"  v-model="formItem.select" placeholder="请选择集群">
+                                    <Option value="beijing">北京市</Option>
+                                    <Option value="shanghai">上海市</Option>
+                                    <Option value="shenzhen">深圳市</Option>
+                                </Select>
+                            </Form-item>
+                            <Form-item style="float: right;margin-right: 20%">
+                                <Button type="primary">提交</Button>
+                                <Button type="primary" style="margin-left: 8px">取消</Button>
+                            </Form-item>
+                        </Form>
+
+                    </div>
+
+                </Col>
+
+
+
+            </Row>
+        </div>
     </div>
 </template>
 
@@ -26,7 +70,7 @@
             return {
                 columns: [
                     {
-                        title: '队列名',
+                        title: 'channel名',
                         width:100,
                         key: 'topic_name',
                         render: (h, params) => {
@@ -49,21 +93,22 @@
                         key: 'service'
                     },
                     {
-                        title: 'lookup地址',
-                        width:170,
-                        key: 'nsqlookup_addr'
-                    },
-                    {
                         title: '秘钥',
                         key: 'secret_name'
                     },
                     {
-                        title: '类型',
+                        title: '未确认',
+                        width:170,
+                        key: 'nsqlookup_addr'
+                    },
+
+                    {
+                        title: '超时',
                         width:70,
                         key: 'type'
                     },
                     {
-                        title: '队列类型',
+                        title: '延迟',
                         width:90,
                         key: 'topic_type',
                         render: (h,params) =>{
@@ -71,7 +116,7 @@
                         }
                     },
                     {
-                        title: '分区',
+                        title: '总数',
                         key: 'partition',
                         width:70,
                         render: (h,params) =>{
@@ -79,7 +124,7 @@
                         }
                     },
                     {
-                        title: '副本',
+                        title: '连接数',
                         key: 'replicator',
                         width:70,
                         render: (h,params) =>{
@@ -87,48 +132,12 @@
                         }
                     },
                     {
-                        title: '留存时间',
-                        width:90,
-                        key: 'retention',
-                        render: (h,params) =>{
-                            return h('div',params.row.topic.retention);
-                        }
-                    },
-                    {
-                        title: '创建时间',
-                        key: 'create_at'
-                    },
-                    {
-                        title: '集群',
-                        width:70,
-                        key: 'cluster_id'
-                    },
-                    {
-                        title: '用户',
-                        width:90,
-                        key: 'user_id'
-                    },
-                    {
-                        title: '操作',
+                        title: '删除',
                         key: 'action',
                         width: 150,
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.show(params.index)
-                                        }
-                                    }
-                                }, '摘要'),
                                 h('Button', {
                                     props: {
                                         type: 'error',
@@ -144,6 +153,21 @@
                         }
                     }
                 ],
+                formItem: {
+                    input: '',
+                    topicType: 0,
+                    select: [
+                        'heelo',
+                        'world'
+                    ],
+                    radio: 'male',
+                    checkbox: [],
+                    switch: true,
+                    date: '',
+                    time: '',
+                    slider: [20, 50],
+                    textarea: ''
+                },
             }
         },
         beforeCreate(){
@@ -151,22 +175,10 @@
         },
         created(){
 
-            let ticket = this.$route.query.ticket;
-            //this.ListTopic();
-            let token = Cookies.get("token");
-            if (ticket !== undefined && Cookies.get("token") ==="be deled"){
-                let token =  Cookies.get("token");
-                //this.ListTopic();
-                // 登录成功后，请求带上name， 后端根据 验证后设置到session 的name去 不再拦截
-                this.LoginCas(ticket);
-                // window.location.href = '/topic'
-                this.$router.push({name:"Topic"})
-                console.log("here is the ticket", ticket)
-                return
-            }
 
-            this.ListTopic();
         },
+
+
 
         computed: {
           ...mapState([
