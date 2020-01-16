@@ -1,11 +1,22 @@
 <template>
     <div>
-        <Button type="primary" shape="circle">圆角按钮</Button>
+        <div class="operation">
+            <Button type="primary" @click="addTopic" shape="circle">新建Topic</Button>
+        </div>
         <br/>
         <br/>
         <Table border :columns="columns" :data="this.topic.topicList"></Table>
     </div>
 </template>
+
+<style type="text/css" scoped>
+    .operation{
+        float: right;
+        padding-right: 20px;
+    }
+
+</style>
+
 <script>
     import Cookies from 'js-cookie';
     import { mapState, mapActions } from 'vuex'
@@ -157,8 +168,6 @@
             this.ListTopic();
         },
 
-
-
         computed: {
           ...mapState([
               'topic',
@@ -171,6 +180,9 @@
                 'ListTopic',
                 'LoginCas'
             ]),
+            addTopic(){
+                this.$router.push({path: '/topic/add'})
+            },
 
             show (index) {
                 this.$Modal.info({

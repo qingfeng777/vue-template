@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <AppHeader/>
+    <!--<AppHeader/>-->
     <div class="app-body">
       <Sidebar/>
       <main class="main">
@@ -46,7 +46,7 @@ export default {
 
 <style type="text/css" scoped>
 .app{
-  # margin-top: -47px;
+  margin-top: -47px;
 }
 
 </style>

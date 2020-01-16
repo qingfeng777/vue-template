@@ -4,6 +4,7 @@ import app from './modules/app';
 import user from './modules/user';
 import permission from './modules/permission';
 import topic from "./modules/topic";
+import cluster from "./modules/cluster";
 import cas from "./modules/cas";
 import getters from './getters';
 
@@ -15,6 +16,7 @@ const store = new Vuex.Store({
     user,
     permission,
     topic,
+    cluster,
     cas,
   },
   getters
