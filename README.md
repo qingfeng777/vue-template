@@ -1,15 +1,7 @@
-# vue-framework-wz #
+# vue-framework #
 
 
-[![TeamCity CodeBetter](https://img.shields.io/teamcity/codebetter/bt428.svg)]() [![npm](https://img.shields.io/npm/dw/localeval.svg)]() [![npm](https://img.shields.io/npm/v/npm.svg)]() [![Chrome Web Store](https://img.shields.io/chrome-web-store/stars/nimelepbpejjlbmoobocpfnjhihnpked.svg)]()[![Sourcegraph for Repo Reference Count](https://img.shields.io/sourcegraph/rrc//github.com/gorilla/mux.svg)]()[![GitHub watchers](https://img.shields.io/github/watchers/badges/shields.svg?style=social&label=Watch)]()
-
-**[立即体验(国内)](http://herozhou.coding.me/vue-framework-wz/#/dashboard)**
-
-**[online-website](https://herozhou.github.io/vue-framework-wz/)**
-
-**[Englist Document](https://github.com/herozhou/vue-framework-wz/wiki/English-Document)**
-
-**本项目是后台管理框架，集成了权限管理、登录功能、UI组件、七牛上传等功能，建议直接使用。**
+**本项目是后台管理框架，集成了权限管理、登录功能、UI组件、七牛上传等功能。**
 > **注意**：便于前端调试，所以数据请求都是用了mockjs模拟。**在需要请求外部api时请移除mock文件**。
 
 ## Features 特性
@@ -32,32 +24,6 @@
 - 炫酷hover特效
 
 
-## Preview 效果图
-
-#### 自适应布局
-
-![自适应布局](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/index.gif)
-
-#### 多TAB效果
-
-![自适应布局](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/tab.gif)
-
-#### 丰富功能表格
-
-![丰富功能表格](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/table.gif)
-
-#### 炫酷登录界面
-
-![炫酷登录界面](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/login.gif)
-
-#### 炫酷图表
-
-![炫酷图表](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/echart.gif)
-
-
-#### 编辑器
-
-![丰富功能表格](https://github.com/herozhou/JAVA-HTML-/blob/master/src/gifs/editor.gif)
 
 
 
@@ -155,19 +121,6 @@
 ```
 
 
-## About me 关于作者
-
-```javascript
-  const herozhou = {
-    blogName  : `herozhou工巧`,
-    blog : `https://www.cnblogs.com/herozhou`,
-    email:`Zhouhero@hotmail.com`,
-    School:`NCHU",
-    Grade:`Junior`
-  }
-  //有任何问题请提issues或直接联系我
- //正在开发一系列帮助新手学习前端的项目，旨在和大家一起成为大前端工程师，有意请follow 我，一起加油💪
-```
 
 
 ## Thanks 感激
