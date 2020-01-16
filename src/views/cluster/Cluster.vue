@@ -1,16 +1,25 @@
 <template>
     <div>
         <div class="operation">
-            <Button type="primary" @click="addTopic" shape="circle">新建集群</Button>
+            <Button type="primary" @click="toAddCluster" shape="circle">新建集群</Button>
         </div>
-        <br/>
-        <br/>
-        <Table border :columns="columns" :data="this.topic.topicList"></Table>
+        <br>
+        <Table style="margin-top: 38px" border :columns="columns" :data="this.cluster.clusterList"></Table>
+
+        <div>
+            <Modal
+                    v-model="modal"
+                    title="删除确认"
+                    @on-ok="ok"
+                    @on-cancel="cancel">
+                <p>确认删除集群 {{this.delData.cluster_name}} 吗?</p>
+            </Modal>
+        </div>
     </div>
 </template>
 
 <style type="text/css" scoped>
-    .operation{
+    .operation {
         float: right;
         padding-right: 20px;
     }
@@ -18,25 +27,22 @@
 </style>
 
 <script>
-    import Cookies from 'js-cookie';
-    import { mapState, mapActions } from 'vuex'
+    import {parseTime} from '../../utils/index'
+    import {mapState, mapActions} from 'vuex'
 
     export default {
-        data () {
+        data() {
             return {
+                test: 'hello',
+                modal: false,
                 columns: [
                     {
                         title: '集群名',
-                        width:100,
+                        width: 100,
                         key: 'cluster_name',
                         render: (h, params) => {
                             return h('div', [
-/*                                h('Icon', {
-                                    props: {
-                                        type: 'person'
-                                    }
-                                }),*/
-                                h('strong', params.row.topic.topic_name)
+                                h('strong', params.row.cluster_name)
                             ]);
                         }
                     },
@@ -46,16 +52,21 @@
                     },
                     {
                         title: 'lookup地址',
-                        key: 'service'
-                    },
-                    {
-                        title: '机房',
-                        width:170,
                         key: 'nsqlookup_addr'
                     },
                     {
+                        title: '机房',
+                        width: 170,
+                        key: 'computer_room'
+                    },
+                    {
                         title: '添加时间',
-                        key: 'secret_name'
+                        key: 'create_at',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('strong', parseTime(params.row.create_at))
+                            ]);
+                        }
                     },
                     {
                         title: '操作',
@@ -74,7 +85,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.show(params.index)
+                                            this.edit(params.index)
                                         }
                                     }
                                 }, '编辑'),
@@ -85,7 +96,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params.index)
+                                            this.delete(params.index)
                                         }
                                     }
                                 }, '删除')
@@ -93,54 +104,53 @@
                         }
                     }
                 ],
+                delData: {
+                    id: '',
+                    cluster_name: ''
+                }
             }
         },
-        beforeCreate(){
 
-        },
-        created(){
-
-            let ticket = this.$route.query.ticket;
-            //this.ListTopic();
-            let token = Cookies.get("token");
-            if (ticket !== undefined && Cookies.get("token") ==="be deled"){
-                let token =  Cookies.get("token");
-                //this.ListTopic();
-                // 登录成功后，请求带上name， 后端根据 验证后设置到session 的name去 不再拦截
-                this.LoginCas(ticket);
-                // window.location.href = '/topic'
-                this.$router.push({name:"Topic"})
-                console.log("here is the ticket", ticket)
-                return
-            }
-
-            this.ListTopic();
+        mounted() {
+            this.ListCluster(true);
         },
 
         computed: {
-          ...mapState([
-              'topic',
-              'cas'
-          ])
+            ...mapState([
+                'cluster',
+            ])
         },
 
         methods: {
             ...mapActions([
-                'ListTopic',
-                'LoginCas'
+                'ListCluster',
+                'DelCluster'
             ]),
-            addTopic(){
-                this.$router.push({path: '/topic/add'})
+            toAddCluster() {
+                this.$router.push({path: '/cluster/add'})
             },
-
-            show (index) {
-                this.$Modal.info({
-                    title: 'Topic Info',
-                    content: `Name：${this.topic.topicList[index].topic.topic_name}<br>desc：${this.topic.topicList[index].desc}<br>`
-                })
+            edit(index) {
+                this.$router.push({path: `/cluster/edit/${index}`})
             },
-            remove (index) {
-                this.data6.splice(index, 1);
+            delete(index) {
+                this.modal = true;
+                this.delData.id = this.cluster.clusterList[index].id;
+                this.delData.cluster_name = this.cluster.clusterList[index].cluster_name;
+            },
+            ok() {
+                // todo, get uId
+                let userId = 1
+                this.DelCluster({clusterId: this.delData.id, userId: userId});
+                this.$Message.info('删除');
+                this.refresh();
+            },
+            refresh() {
+                setTimeout(() => {
+                    this.ListCluster(true);
+                }, 1500);
+            },
+            cancel() {
+                this.$Message.info('取消');
             }
         }
     }

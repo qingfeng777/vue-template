@@ -1,29 +1,35 @@
 <template>
     <div>
         <Row>
-            <Col span="24" >
+            <Col span="24">
 
                 <div style="" class="">
-                    <Form :model="formItem" :label-width="80">
-                        <Form-item label="集群名">
-                            <Input v-model="formItem.input" placeholder="请输入集群名称"></Input>
+                    <Form :model="oldCluster" :rules="rules" :label-width="80" ref="cluster">
+                        <Form-item label="集群名" prop="cluster_name">
+                            <Input v-model="oldCluster.cluster_name" placeholder="请输入集群名称"></Input>
                         </Form-item>
-                        <Form-item label="描述">
-                            <Input v-model="formItem.input" placeholder="请输入描述信息"></Input>
+                        <Form-item label="描述" prop="desc">
+                            <Input v-model="oldCluster.desc" placeholder="请输入描述信息"></Input>
                         </Form-item>
-                        <Form-item label="集群注册id">
-                            <Input v-model="formItem.input" placeholder="请输入集群注册id，仅记录用"></Input>
+                        <Form-item label="集群注册id" prop="cluster_register_id">
+                            <Input v-model="oldCluster.cluster_register_id" placeholder="请输入集群注册id，仅记录用"></Input>
                         </Form-item>
-                        <Form-item label="机房">
-                            <Input v-model="formItem.input" placeholder="请输入机房信息"></Input>
+                        <Form-item label="机房" prop="computer_room">
+                            <Input v-model="oldCluster.computer_room" placeholder="请输入机房信息"></Input>
                         </Form-item>
-                        <Form-item label="lookup地址">
-                            <Input v-model="formItem.input" placeholder="请输入lookup地址"></Input>
+                        <Form-item label="lookup地址" prop="nsqlookup_addr">
+                            <Input v-model="oldCluster.nsqlookup_addr" placeholder="请输入lookup地址"></Input>
                         </Form-item>
+                        <FormItem label="private" prop="private">
+                            <RadioGroup v-model="oldCluster.private">
+                                <Radio :label=true>私有</Radio>
+                                <Radio :label=false>公开</Radio>
+                            </RadioGroup>
+                        </FormItem>
 
                         <Form-item style="float: right;margin-right: 20%">
-                            <Button type="primary">提交</Button>
-                            <Button type="primary" style="margin-left: 8px">取消</Button>
+                            <Button v-on:click="submit('cluster')" type="primary">提交</Button>
+                            <Button v-on:click="cancel" type="primary" style="margin-left: 8px">取消</Button>
                         </Form-item>
                     </Form>
 
@@ -32,81 +38,111 @@
             </Col>
 
 
-
         </Row>
     </div>
 </template>
 
 <style type="text/css" scoped>
 
-    .halfWidth{
+    .halfWidth {
         width: 40%;
     }
-    .paddingLeft{
+
+    .paddingLeft {
         padding-left: 30px;
     }
 
 </style>
 
 <script>
-    import Cookies from 'js-cookie';
-    import { mapState, mapActions } from 'vuex'
+    import {mapState, mapActions} from 'vuex'
 
     export default {
-        data () {
+        data() {
             return {
-                formItem: {
-                    input: '',
-                    topicType: 0,
-                    select: [
-                        'heelo',
-                        'world'
+                oldCluster: {},
+                rules: {
+                    cluster_name: [
+                        {required: true, message: 'Please fill in the service name', trigger: 'blur'},
+                        {
+                            type: 'string',
+                            max: 30,
+                            min: 3,
+                            message: 'The length cannot be less than 6 bits,no more than 30 bits',
+                            trigger: 'blur'
+                        }
                     ],
-                    radio: 'male',
-                    checkbox: [],
-                    switch: true,
-                    date: '',
-                    time: '',
-                    slider: [20, 50],
-                    textarea: ''
-                },
+                    desc: [
+                        {required: true, max: 30, message: 'Please fill in the desc name', trigger: 'blur'},
+                    ],
+                    cluster_register_id: [
+                        {required: true, message: 'Please fill in the registerId name', trigger: 'blur'},
+                        {
+                            type: 'string',
+                            min: 5,
+                            max: 30,
+                            message: 'The length cannot be less than 6 bits,no more than 30 bits',
+                            trigger: 'blur'
+                        }
+                    ],
+                    computer_room: [
+                        {required: true, message: 'Please fill in the computerRoom name', trigger: 'blur'},
+                        {
+                            type: 'string',
+                            min: 3,
+                            max: 30,
+                            message: 'The length cannot be less than 6 bits,no more than 30 bits',
+                            trigger: 'blur'
+                        }
+                    ],
+                    nsqlookup_addr: [
+                        {required: true, message: 'Please fill in the lookup name', trigger: 'blur'},
+                        {
+                            type: 'string',
+                            min: 6,
+                            max: 30,
+                            message: 'The length cannot be less than 6 bits,no more than 30 bits',
+                            trigger: 'blur'
+                        }
+                    ]
+                }
             }
         },
-        beforeCreate(){
+        beforeCreate() {
 
         },
-        created(){
-
-
+        created() {
+            let index = this.$route.params.index;
+            this.oldCluster = this.cluster.clusterList[index];
         },
-
-
-
         computed: {
             ...mapState([
-                'topic',
-                'cas'
+                'cluster',
             ])
         },
 
         methods: {
             ...mapActions([
-                'ListTopic',
-                'LoginCas'
+                'EditCluster'
             ]),
-            addTopic(){
-                this.$router.push({path: '/'})
-            },
-
-            show (index) {
-                this.$Modal.info({
-                    title: 'Topic Info',
-                    content: `Name：${this.topic.topicList[index].topic.topic_name}<br>desc：${this.topic.topicList[index].desc}<br>`
+            submit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        this.EditCluster(this.oldCluster).then(() => {
+                            this.loading = false;
+                            this.$router.push({path: '/cluster'})
+                        }).catch(err => {
+                            this.$Message.error(err)
+                            this.loading = false;
+                        });
+                    } else {
+                        this.$Message.error('params not right!')
+                    }
                 })
             },
-            remove (index) {
-                this.data6.splice(index, 1);
-            }
+            cancel() {
+                this.$router.push({path: '/cluster'})
+            },
         }
     }
 </script>

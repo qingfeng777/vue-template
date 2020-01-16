@@ -39,7 +39,7 @@ export const asyncRouterMap = [
 
  {
     path: '/',
-    redirect: '/introduction',
+    redirect: '/topic',
     name: '首页',
     component: Full,
     hidden:false,
@@ -47,11 +47,11 @@ export const asyncRouterMap = [
      {path: '/topic',name: 'Topic',icon:'merge',component: _import('topic/Topic')},
      {path: '/cluster',name: 'Cluster',icon:'ios-paper',component: _import('cluster/Cluster')},
      {path: '/cluster/add',name: 'AddCluster',icon:'speedometer',component: _import('cluster/AddCluster'), hidden:true},
-     {path: '/cluster/edit',name: 'EditCluster',icon:'speedometer',component: _import('cluster/EditCluster'), hidden:true},
+     {path: '/cluster/edit/:index',name: 'EditCluster',icon:'speedometer',component: _import('cluster/EditCluster'), hidden:true},
      {path: '/topic/add',name: 'AddTopic',icon:'speedometer',component: _import('topic/AddTopic'), hidden:true},
      {path: '/topic/use',name: 'UseTopic',icon:'speedometer',component: _import('topic/UseTopic'), hidden:true},
      {path: '/channel',name: 'Channel',icon:'speedometer',component: _import('topic/Channel'), hidden:true},
-     {path: '/introduction',name: '介绍',icon:'thumbsup',component: _import('Introduction')},
+/*     {path: '/introduction',name: '介绍',icon:'thumbsup',component: _import('Introduction')},
      {path: '/components',name: 'component组件',redirect: '/components/buttons',icon:'bookmark',
         component: {render (c) { return c('router-view') }},
         children: [ {path: 'buttons',name: 'Buttons按钮',icon:'social-youtube',component: _import('components/Buttons'), hidden:false, },
@@ -82,7 +82,7 @@ export const asyncRouterMap = [
       {path: '/tabledetail/:id',name: 'TableDetail', hidden:true, component: _import('TableDetail')},
       {path: '/tinymce',name: 'Tinymce编辑器',icon:"android-document",component: _import('Tinymce')},
       {path: '/markdown',name: 'Markdown',icon:"android-list",component: _import('Markdown')},
-      
+      */
     ]
   },
 
