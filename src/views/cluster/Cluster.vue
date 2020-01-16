@@ -23,7 +23,6 @@
         float: right;
         padding-right: 20px;
     }
-
 </style>
 
 <script>

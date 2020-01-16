@@ -51,7 +51,6 @@
     .paddingLeft {
         padding-left: 30px;
     }
-
 </style>
 
 <script>
@@ -116,19 +115,6 @@
                 }
             }
         },
-        beforeCreate() {
-
-        },
-        created() {
-
-
-        },
-        computed: {
-            /*            ...mapState([
-                            'cluster',
-                            'cas'
-                        ])*/
-        },
 
         methods: {
             ...mapActions([
@@ -142,7 +128,7 @@
                             this.$router.push({path: '/cluster'})
                         }).catch(err => {
                             this.$Message.error(err)
-                            this.loading =false;
+                            this.loading = false;
                         });
                     } else {
                         this.$Message.error('params not right!')
